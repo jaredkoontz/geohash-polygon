@@ -1,3 +1,7 @@
+from shapely.geometry.geo import box
+from shapely.geometry.polygon import Polygon
+from shapely.prepared import prep
+
 from geohash_py import geohash
 
 
@@ -26,3 +30,47 @@ def longest_enclosing_hash(
             break
 
     return prefix
+
+
+def get_geohash_bbox(gh):
+    lat, lon, lat_err, lon_err = geohash.decode_exactly(gh)
+    return box(lon - lon_err, lat - lat_err, lon + lon_err, lat + lat_err)
+
+
+def longest_enclosing_geohashes(polygon_coords, max_precision=7):
+    polygon = Polygon(polygon_coords)
+    prepared_poly = prep(polygon)
+
+    min_lon, min_lat, max_lon, max_lat = polygon.bounds
+    min_hash = geohash.encode(min_lat, min_lon, 1)
+    max_hash = geohash.encode(max_lat, max_lon, 1)
+
+    queue = set()
+    visited = set()
+
+    # Start with all possible precision 1 geohashes that intersect bbox
+    for lat in range(int(min_lat) - 1, int(max_lat) + 2):
+        for lon in range(int(min_lon) - 1, int(max_lon) + 2):
+            gh = geohash.encode(lat, lon, 1)
+            queue.add(gh)
+
+    result = set()
+
+    while queue:
+        gh = queue.pop()
+        if gh in visited:
+            continue
+        visited.add(gh)
+
+        gh_box = get_geohash_bbox(gh)
+
+        if prepared_poly.contains(gh_box):
+            # Fully inside, add to result, don’t subdivide
+            result.add(gh)
+        # elif prepared_poly.intersects(gh_box):
+        #     # Partially inside, subdivide if precision < max
+        #     if len(gh) < max_precision:
+        #         # for c in geohash.expand(gh):
+        #         queue.add(c)
+
+    return result
