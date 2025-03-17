@@ -6,7 +6,6 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: debug-statements
-      - id: requirements-txt-fixer
 
   - repo: https://github.com/asottile/reorder_python_imports
     rev: v3.12.0
@@ -28,11 +27,6 @@ repos:
         args: [ --fix ]
       # Run the formatter.
       - id: ruff-format
-
-  - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v2.5.0
-    hooks:
-      - id: setup-cfg-fmt
 
   # from https://github.com/microsoft/pyright/blob/main/docs/ci-integration.md
   - repo: local
