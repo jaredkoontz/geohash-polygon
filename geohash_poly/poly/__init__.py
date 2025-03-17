@@ -1,0 +1,1 @@
+from ._geohash_poly import geohashes_in_polygon as geohashes_in_polygon
