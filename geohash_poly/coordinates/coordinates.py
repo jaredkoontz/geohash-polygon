@@ -1,30 +1,25 @@
+import dataclasses
+
+
+@dataclasses.dataclass
 class LatLonPair:
-    def __init__(self, lat: float, lon: float):
-        self.lat = lat
-        self.lon = lon
-
-    def get_lat(self) -> float:
-        return self.lat
-
-    def get_lon(self) -> float:
-        return self.lon
-
-    def __str__(self):
-        return f"LatLonPair(lat={self.lat}, lon={self.lon})"
+    lat: float
+    lon: float
 
 
+@dataclasses.dataclass
 class Error:
-    def __init__(self, lat_err: float, lon_err: float):
-        self.lat_err = lat_err
-        self.lon_err = lon_err
-
-    def __str__(self):
-        return f"Error(lat_err={self.lat_err}, lon_err={self.lon_err})"
+    lat_err: float
+    lon_err: float
 
 
 class Coordinates:
     def __init__(
-        self, lat: float, lon: float, lat_err: float = None, lon_err: float = None
+            self,
+            lat: float,
+            lon: float,
+            lat_err: float | None = None,
+            lon_err: float | None = None,
     ):
         self.lat_lon_pair = LatLonPair(lat, lon)
         self.error = (
@@ -34,12 +29,12 @@ class Coordinates:
         )
 
     def get_latitude(self) -> float:
-        return self.lat_lon_pair.get_lat()
+        return self.lat_lon_pair.lat
 
     def get_longitude(self) -> float:
-        return self.lat_lon_pair.get_lon()
+        return self.lat_lon_pair.lon
 
-    def get_error(self):
+    def get_error(self) -> Error | None:
         return self.error
 
     def __str__(self):

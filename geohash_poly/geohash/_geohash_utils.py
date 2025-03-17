@@ -15,7 +15,7 @@ class GeoHashUtils:
     @staticmethod
     def is_west(lon1: float, lon2: float) -> bool:
         return (lon1 < lon2 and lon2 - lon1 < 180) or (
-            lon1 > lon2 and lon2 - lon1 + 360 < 180
+                lon1 > lon2 and lon2 - lon1 + 360 < 180
         )
 
     @staticmethod
@@ -38,24 +38,22 @@ class GeoHashUtils:
     @staticmethod
     def neighbor(hash_string: str, direction: tuple[int, int]) -> str:
         coords = GeoHashUtils.decode_with_error(hash_string)
-        neighbor_lat = (
-            coords.get_latitude() + direction[0] * coords.get_error().lat_err * 2
-        )
-        neighbor_lon = (
-            coords.get_longitude() + direction[1] * coords.get_error().lon_err * 2
-        )
+        error = coords.get_error()
+        lat_error = error.lat_err if error else 0
+        lon_error = error.lon_err if error else 0
+        neighbor_lat = coords.get_latitude() + direction[0] * lat_error * 2
+        neighbor_lon = coords.get_longitude() + direction[1] * lon_error * 2
         return GeoHash.encode_lat_lon(neighbor_lat, neighbor_lon, len(hash_string))
 
     @staticmethod
     def inside(point: Coordinates, polygon: list[Coordinates]) -> int:
         if PointInPolygon.point_in_polygon(
-            [point.get_longitude(), point.get_latitude()], polygon
+                [point.get_longitude(), point.get_latitude()], polygon
         ):
             return 1
         return 0
 
 
-# Placeholder for PointInPolygon class
 class PointInPolygon:
     @staticmethod
     def point_in_polygon(point: list[float], polygon: list[Coordinates]) -> bool:
@@ -75,6 +73,7 @@ class PointInPolygon:
             p2y = polygon[i % num].get_latitude()
             if min(p1y, p2y) < y <= max(p1y, p2y):
                 if x <= max(p1x, p2x):
+                    xinters = float("inf")
                     if p1y != p2y:
                         xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
                     if p1x == p2x or x <= xinters:

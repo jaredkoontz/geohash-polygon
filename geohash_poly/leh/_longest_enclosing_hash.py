@@ -3,7 +3,7 @@ from geohash_poly.geohash import GeoHash
 
 
 def longest_enclosing_hash(
-    polygon_points: list[Coordinates], precision: int = GeoHash.DEFAULT_PRECISION
+        polygon_points: list[Coordinates], precision: int = GeoHash.DEFAULT_PRECISION
 ) -> str:
     hashes = [GeoHash.encode(coord, precision) for coord in polygon_points]
     return _longest_common_prefix(hashes)
