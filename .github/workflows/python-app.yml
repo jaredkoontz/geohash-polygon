@@ -1,0 +1,27 @@
+# This workflow will install Python dependencies, run tests, and pre-commit with a single version of Python
+
+name: geohash-polygon-py
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Install the project
+        run: uv sync --all-extras --dev
+      - name: runs pre-commit
+        uses: pre-commit/action@v3.0.1
+      - name: Test with pytest
+        run: |
+          uv run pytest tests
