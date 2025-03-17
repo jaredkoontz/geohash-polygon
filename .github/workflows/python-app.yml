@@ -24,4 +24,4 @@ jobs:
         uses: tox-dev/action-pre-commit-uv@v1
       - name: Test with pytest
         run: |
-          uv run pytest tests
+          uv run python -m pytest .
