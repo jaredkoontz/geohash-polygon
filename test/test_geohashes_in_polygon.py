@@ -2,8 +2,8 @@ import pytest
 
 from geohash_poly.leh import longest_enclosing_hash
 from geohash_poly.poly import geohashes_in_polygon
-from test.test_data import PolygonInfo
 from test.test_data import no_co
+from test.test_data import PolygonInfo
 from test.test_data import us
 from test.test_data import weird
 from test.test_data import wyoming_co

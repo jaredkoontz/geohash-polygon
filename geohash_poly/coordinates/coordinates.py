@@ -15,11 +15,11 @@ class Error:
 
 class Coordinates:
     def __init__(
-            self,
-            lat: float,
-            lon: float,
-            lat_err: float | None = None,
-            lon_err: float | None = None,
+        self,
+        lat: float,
+        lon: float,
+        lat_err: float | None = None,
+        lon_err: float | None = None,
     ):
         self.lat_lon_pair = LatLonPair(lat, lon)
         self.error = (

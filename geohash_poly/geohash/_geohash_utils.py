@@ -15,7 +15,7 @@ class GeoHashUtils:
     @staticmethod
     def is_west(lon1: float, lon2: float) -> bool:
         return (lon1 < lon2 and lon2 - lon1 < 180) or (
-                lon1 > lon2 and lon2 - lon1 + 360 < 180
+            lon1 > lon2 and lon2 - lon1 + 360 < 180
         )
 
     @staticmethod
@@ -48,7 +48,7 @@ class GeoHashUtils:
     @staticmethod
     def inside(point: Coordinates, polygon: list[Coordinates]) -> int:
         if PointInPolygon.point_in_polygon(
-                [point.get_longitude(), point.get_latitude()], polygon
+            [point.get_longitude(), point.get_latitude()], polygon
         ):
             return 1
         return 0
