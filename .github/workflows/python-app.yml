@@ -21,7 +21,7 @@ jobs:
       - name: Install the project
         run: uv sync --all-extras --dev
       - name: runs pre-commit
-        uses: pre-commit/action@v3.0.1
+        uses: tox-dev/action-pre-commit-uv@v1
       - name: Test with pytest
         run: |
           uv run pytest tests
