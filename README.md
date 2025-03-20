@@ -1,4 +1,4 @@
-# geohash-polygon-py
+# geohash-polygon
 
 A python implementation to find the geohashes inside a polygon. This project is
 inspired [from](https://github.com/derrickpelletier/geohash-poly) and
