@@ -9,6 +9,10 @@ def longest_enclosing_hash(
     return _longest_common_prefix(hashes)
 
 
+def longest_common_prefix(hashes: list[str]) -> str:
+    return _longest_common_prefix(hashes)
+
+
 def _longest_common_prefix(strings: list[str]) -> str:
     if not strings:
         return ""
