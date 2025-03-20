@@ -1,1 +1,2 @@
+from ._longest_enclosing_hash import longest_common_prefix as longest_common_prefix
 from ._longest_enclosing_hash import longest_enclosing_hash as longest_enclosing_hash
